@@ -1,0 +1,37 @@
+{% extends 'account/base.html' %}
+
+
+{% block center %}
+<br>
+
+{% if twitter_list %}
+<h5>
+    User's Who Followed Me:
+</h5>
+<br>
+{% for tt in twitter_list %}
+    <div class="author-div">
+        <i class="bi bi-person-circle"></i> {{ tt.followed }} - pk_{{  tt.followed.pk }} 
+        <a href="{% url 'posts:unfollow_user' tt.followed.pk %}" class="single-category btn btn-warning">
+            Delete Follower!
+        </a>
+    </div>
+
+
+<br><hr><hr><br>
+
+    {%endfor%}
+    
+{%else%}
+
+<h4>
+    Nobody Follow You.
+    
+</h4>
+<br>
+<h5>
+    Be more active, make Posts!
+</h5>
+{%endif%}
+
+    {% endblock %}

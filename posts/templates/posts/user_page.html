@@ -1,0 +1,35 @@
+{% extends 'account/base.html' %}
+
+
+{% block center %}
+    <br>
+    <a class="btn btn-secondary px-5" href="{% url 'posts:post_add' %}"><b> Create new Post ... </b></a>
+    <br>
+    <br>
+    <h1>
+        {{ request.user | title }} Posts:
+    </h1>
+    <br>
+
+    {% for post in post_list %}
+
+
+        {% include 'posts/_form.html' %}
+
+        <div class="categories">
+            <a href="{% url 'posts:post_delete' post.pk %}" class="btn btn-sm btn-danger">
+                Delete Post!
+            </a>
+            <a href="{% url 'posts:post_update' post.pk %}" class="btn btn-sm btn-warning">
+                Update Post!
+            </a>
+        </div>
+        <hr class="color:green p-2">
+    {%empty%}
+        <br>
+        <h2 class="text-warning">
+            {{request.user | title }} haven't posts yet!
+        </h2>
+    {%endfor%}
+
+{% endblock %}

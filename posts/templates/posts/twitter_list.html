@@ -1,0 +1,38 @@
+{% extends 'account/base.html' %}
+
+
+{% block center %}
+
+<br>
+
+{% if twitter_list %}
+<h3>
+    Users I Follow:
+</h3>
+<br>
+{% for tt in twitter_list %}
+    <div class="author-div">
+        <i class="bi bi-person-circle"></i>
+        <a href="{% url 'posts:follow_w' tt.follow.pk %}">
+            username {{ tt.follow }} - {{  tt.follow.pk }} 
+        </a> 
+        <a href="{% url 'posts:unfollow' tt.follow.pk %}" class="single-category btn btn-warning">
+            UnFollow
+        </a>
+    </div>
+
+
+<br><hr><hr><br>
+
+    {%endfor%}
+{%else%}
+<h3>
+    {{request.user}}, you aren't follow anyone yet.
+</h3>
+<br>
+<h5>
+    Go to Posts page and follow interesting peoples.
+</h5>
+{%endif%}
+
+    {% endblock %}

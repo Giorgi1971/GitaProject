@@ -1,0 +1,81 @@
+{% extends 'account/base.html' %}
+
+{% block center %}
+<h3 class="text-success">
+    <b> First follow users posts:</b>
+</h3>
+
+<div class="row">
+    <!-- there is button. put anywhere if we need. is_staff status -->
+    <div style="margin: auto;">
+        {% if user.is_authenticated %}
+        <br>
+        <a class="btn btn-secondary px-5" href="{% url 'posts:post_add' %}"><b> Create new Post ... </b></a>
+        <br>
+        {% endif %}
+        <br>
+        <!-------------------------------------search button if need ------------------------------------------------------------>
+        <form class="d-flex" method="get" action="{% url 'posts:example2' %}">
+            <input class="form-control me-2" type="search" name="phrase" value="{{ request.GET.phrase }}"
+                placeholder="Search in Posts" aria-label="Search">
+            <button class="btn btn-outline-success create-button" type="submit" name="action">Search</button>
+        </form>
+    </div>
+</div>
+<br>
+{% if message %}
+<h5 class="text-danger"> {{ message }} </h5>
+{% endif %}
+<h3 class="text-success">
+    Posts:
+</h3>
+
+{% for post in list %}
+
+{% include 'posts/_form.html' %}
+
+<hr class="color:green p-2">
+
+{%endfor%}
+
+
+{% if page_obj %}
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if page_obj.has_previous %}
+
+        <li class="page-item "><a class="page-link link-dark" href="?phrase={{ request.GET.phrase }}&page=1">
+                &laquo; First
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link link-dark"
+                href="?phrase={{ request.GET.phrase }}&page={{ page_obj.previous_page_number }}">
+                {{page_obj.previous_page_number }}
+            </a>
+        </li>
+        {% endif %}
+
+        <li class="page-item"><a class="page-link link-success" href="#"><b>
+                    {{ page_obj.number }}
+                </b></a></li>
+
+        {% if page_obj.has_next %}
+        <li class="page-item">
+            <a class="page-link link-dark" href="?phrase={{ request.GET.phrase }}&page={{ page_obj.next_page_number }}">
+                {{ page_obj.next_page_number }}
+            </a>
+        </li>
+        <li class="page-item">
+            <a class="page-link link-dark"
+                href="?phrase={{ request.GET.phrase }}&page={{ page_obj.paginator.num_pages }}">
+                Last &raquo;
+            </a>
+        </li>
+        {% endif %}
+    </ul>
+</nav>
+{% endif %}
+
+
+{% endblock %}

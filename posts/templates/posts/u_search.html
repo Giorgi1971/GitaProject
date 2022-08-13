@@ -1,0 +1,18 @@
+{% extends 'account/base.html' %}
+
+{% block center %}
+<br>
+Search result in Users:
+<br>
+<hr>
+<ul>
+
+    {% for i in user_list %}
+    <li>
+        <a href="{% url 'posts:follow_w' i.pk %}">{{i}} {{i.first_name}} {{i.last_name}}</a>
+    </li>
+    <br>
+    {% endfor %}
+</ul>
+
+{% endblock %}

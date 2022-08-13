@@ -1,0 +1,21 @@
+{% extends 'account/base.html' %}
+
+{% block center %}
+
+<h3 class="text-success">
+   <b> Only followed users Posts:</b>
+</h3>
+{% for post in list %}
+
+{% include 'posts/_form.html' %}
+
+<hr class="color:green p-2">
+
+    {%empty%}
+<h3>
+    No list
+</h3>
+{% endfor %}
+
+
+{% endblock %}
